@@ -4,7 +4,6 @@ development:
   database: teamzu_development
   pool: 5
   username: austin_schneider
-  password:
     
 test: &test
   adapter: postgresql
@@ -12,7 +11,6 @@ test: &test
   database: teamzu_test
   pool: 5
   username: austin_schneider
-  password:
 
 cucumber:
   <<: *test
@@ -23,7 +21,6 @@ staging:
   database: teamzu_staging
   pool: 5
   username: austin_schneider
-  password:
 
 production:
   adapter: postgresql
@@ -31,4 +28,3 @@ production:
   database: teamzu_production
   pool: 5
   username: austin_schneider
-  password:

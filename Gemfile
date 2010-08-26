@@ -3,8 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.0.rc2'
 gem 'pg'
 
-group :cucumber, :test do
-  gem 'rspec-rails'
+group :development, :test, :cucumber do
+  gem "rspec-rails", ">= 2.0.0.beta.20"
 end
 
 group :cucumber do
