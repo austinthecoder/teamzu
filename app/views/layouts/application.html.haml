@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title
+      Teamzu
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+%body
+  %h4
+    = link_to 'Sign Up', new_user_registration_path
+  %p
+    = notice
+    = alert
+  %p
+    - if user_signed_in?
+      You're signed in
+  = yield
