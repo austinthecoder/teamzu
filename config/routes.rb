@@ -1,5 +1,7 @@
 Teamzu::Application.routes.draw do
-  devise_for :users
+  devise_for :users do
+    resources :teams
+  end
 
   root :to => 'pages#index'
   # The priority is based upon order of creation:
