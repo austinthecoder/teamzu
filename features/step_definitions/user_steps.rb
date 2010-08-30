@@ -1,9 +1,10 @@
 Given /^there is a user with the following attributes:$/ do |table|
   attrs = table.rows_hash
+  @user_password = attrs['Password']
   @user = User.create!(
     :email => attrs['Email'],
-    :password => attrs['Password'],
-    :password_confirmation => attrs['Password']
+    :password => @user_password,
+    :password_confirmation => @user_password
   )
 end
 
@@ -14,6 +15,10 @@ Given /^I am signed in$/ do
       | Password | 222222           |
     And I sign in with "john@example.com" and "222222"
   }
+end
+
+Given /^I am signed in as that user$/ do
+  And %|I sign in with "#{@user.email}" and "#{@user_password}"|
 end
 
 ##################################################
@@ -50,6 +55,14 @@ end
 
 Then /^I should see the change your password form$/ do
   page.should have_css("form#change_password")
+end
+
+Then /^I should see the edit user form$/ do
+  page.should have_css("form#user_edit")
+end
+
+Then /^I should see the account cancellation form$/ do
+  page.should have_css("form#delete_user")
 end
 
 Then /^I should (not\s)?see the signed\-in menu$/ do |the_not|
