@@ -5,5 +5,6 @@
   
   %p Are you sure you want to cancel your account?
   
-  %p= f.submit "Yes, cancel my account"
-  %p= link_to 'No, go back', edit_user_registration_path
+  %div
+    = submit_button "Yes, cancel my account"
+    = link_to 'No, go back', edit_user_registration_path

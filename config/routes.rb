@@ -1,9 +1,14 @@
 Teamzu::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"} do
     match "users/cancel_account" => "users/registrations#delete", :as => :delete_user_registration
-    resources :teams
   end
-
+  
+  resources :teams do
+    member do
+      get :delete
+    end
+  end
+  
   root :to => 'pages#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

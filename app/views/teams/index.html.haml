@@ -1,0 +1,22 @@
+%h2 My Teams
+
+%p= link_to 'Create a team', new_team_path
+
+- unless @teams.empty?
+  %table#teams.data
+    %thead
+      %tr
+        %th Name
+        %th
+    %tbody
+      - @teams.each do |t|
+        %tr{:id => "team_#{t.id}", :class => cycle(:odd, :even)}
+          %td= t.name
+          %td
+            = link_to 'edit', edit_team_path(t)
+            |
+            = link_to 'delete', delete_team_path(t)
+  .pagination
+    = will_paginate @teams
+- else
+  %p You do not have any teams.

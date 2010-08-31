@@ -1,0 +1,8 @@
+%h2 Delete Team
+
+= form_tag @team, :method => 'delete', :class => 'delete_team' do
+  %p Are you sure you want to delete this team?
+  
+  %p
+    = submit_button('Yes, delete this team')
+    = link_to 'No, go back', teams_url

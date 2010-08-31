@@ -59,7 +59,7 @@ Feature: Registration
     
     When I go to the home page
     And I follow "Sign In"
-    And I follow "Forgot your password?"
+    And I follow "Forgot?"
     Then I should see the forgot password form
     
     When I press "Send me reset password instructions"
