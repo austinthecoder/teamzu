@@ -1,0 +1,41 @@
+a
+  color: #33f
+  text-decoration: none
+  &:hover
+    color: #339
+  &:visited
+    color: #339
+
+body
+  background: #fff
+  color: #333
+  font-size: 18px
+  padding: 30px
+
+form
+  background: #eee
+  padding: 20px 30px
+
+h1, h2, h3
+  font-weight: normal
+
+h1
+  color: lighten($heading1_color, 20%)
+h2
+  color: lighten($heading1_color, 30%)
+h3
+  color: lighten($heading1_color, 40%)
+h4
+  color: lighten($heading1_color, 50%)
+h5
+  color: lighten($heading1_color, 60%)
+h6
+  color: lighten($heading1_color, 70%)
+
+ul
+  +block
+  margin: 0 0 1.5em 0
+  li
+    +block
+    background: url($images_path + '/icons/silk/bullet_black.png') no-repeat 0px 2px
+    padding: 0 0 0 21px

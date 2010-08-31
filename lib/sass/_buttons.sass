@@ -1,0 +1,79 @@
+* html
+  button.btn
+    padding-bottom: 1px
+  .btn
+    span
+      padding-top: 0
+    b
+      top: 1px
+
+html:not([lang*=""])
+  button.btn
+    margin: 0 -3px
+
+.btn
+  background: none
+  border-width: 0
+  display: inline-block
+  margin: 0
+  overflow: visible
+  padding: 3px 0
+  text-decoration: none
+  color: #333 !important
+  b
+    background: #e3e3e3
+    position: absolute
+    z-index: 2
+    bottom: 0
+    left: 0
+    width: 100%
+    overflow: hidden
+    height: 40%
+    border-top: 3px solid #eee
+  u
+    text-decoration: none
+    position: relative
+    z-index: 3
+  span
+    background: #f9f9f9
+    z-index: 1
+    margin: 0
+    padding: 3px 0
+    border-left: 1px solid #ccc
+    border-right: 1px solid #bbb
+    span
+      background: none
+      position: relative
+      padding: 3px 1em
+      border-width: 0
+      border-top: 1px solid #ccc
+      border-bottom: 1px solid #bbb
+
+.btn:hover
+  span
+    cursor: pointer
+    border-color: #9cf !important
+    color: #000
+    span
+      cursor: pointer
+      border-color: #9cf !important
+      color: #000
+
+button
+  font-weight: bold
+
+.btn
+  &.pill-l
+    span
+      border-right-width: 0
+      span
+        border-right: 1px solid #ccc
+  &.pill-c
+    span
+      border-right-style: none
+      border-left-color: #fff
+      span
+        border-right: 1px solid #ccc
+  &.pill-r
+    span
+      border-left-color: #fff

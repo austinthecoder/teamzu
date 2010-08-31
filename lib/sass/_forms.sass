@@ -1,0 +1,38 @@
+form
+  ul.checkboxes, ul.radios
+    margin: 0
+    li
+      +block
+      margin: 0 0 5px 0 
+  table tbody tr td .part
+    display: block
+    float: left
+    margin: 0 10px 10px 0
+    input, textarea, select
+      display: block
+    label
+      display: block
+      color: #444
+      font:
+        size: .9em
+        weight: normal
+      line-height: 1.5em
+      white-space: nowrap
+  .footer
+    border-top: 1px dotted $form_footer_border_color
+    padding-top: 10px
+    margin-top: 10px
+
+
+form.button-to, form.button-to > div
+  display: inline
+
+input
+  &.watermark
+    color: #999
+  &.currency
+    text-align: right
+  &.positive
+    border: 3px solid green
+  &.negative
+    border: 3px solid red

@@ -1,0 +1,46 @@
+.box
+  background: #eee url($images_path + '/boxes/box1/t.png') repeat-x left top
+  .box_inner1
+    background: url($images_path + '/boxes/box1/b.png') repeat-x left bottom
+  .box_inner2
+    background: url($images_path + '/boxes/box1/l.png') repeat-y left top
+  .box_inner3
+    background: url($images_path + '/boxes/box1/r.png') repeat-y right top
+  .box_inner4
+    background: url($images_path + '/boxes/box1/tr.png') no-repeat right top
+  .box_inner5
+    background: url($images_path + '/boxes/box1/tl.png') no-repeat left top
+  .box_inner6
+    background: url($images_path + '/boxes/box1/br.png') no-repeat right bottom
+  .box_inner7
+    background: url($images_path + '/boxes/box1/bl.png') no-repeat left bottom
+  .box_header
+    color: #666
+    margin: 0
+    padding: 7px 12px
+  .box_body
+    padding: 12px 22px 19px 22px
+    
+  form
+    .footer
+      border-color: darken($form_footer_border_color, 10%)
+        
+  table.data
+    thead
+      tr
+        background:
+          color: #ddd
+          image: url($images_path + '/gradients/2x30_eee_to_ddd.png')
+    tbody, tfoot
+      tr.even
+        background: #eee
+      tr.odd
+        background: #f5f5f5
+        
+  .grid
+    background: #ddd
+    .grid_body
+      border-bottom: 1px solid #ccc
+
+.box.footer
+  margin-bottom: 0
