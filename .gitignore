@@ -1,4 +1,5 @@
 .bundle
+capybara*
 coverage
 db/*.sqlite3
 log/*.log
