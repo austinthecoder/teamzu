@@ -6,6 +6,7 @@ gem 'haml', "3.0.18"
 gem 'devise', "1.1.2"
 gem 'dynamic_form', '1.1.2'
 gem 'will_paginate', '3.0.pre2'
+gem 'attribute_normalizer', '0.3.1'
 
 group :development, :test, :cucumber do
   gem "rspec-rails", ">= 2.0.0.beta.20"

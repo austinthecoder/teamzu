@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe Team do
   
+  it { should normalize_attribute(:name).from("  Strikers \n").to("Strikers") }
+  
   describe "validations" do
     before do
       @team = Factory.build(:team)

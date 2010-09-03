@@ -13,3 +13,7 @@ Factory.define(:team) do |m|
   m.association :user
   m.name { Factory.next(:team_name) }
 end
+
+Factory.define(:invalid_team, :class => Team) do |m|
+  m.name ''
+end
