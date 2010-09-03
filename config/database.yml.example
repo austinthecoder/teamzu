@@ -1,16 +1,13 @@
-development:
+development: &development
   adapter: postgresql
   encoding: unicode
   database: teamzu_development
+  username: postgres
   pool: 5
-  username: austin_schneider
     
 test: &test
-  adapter: postgresql
-  encoding: unicode
+  <<: *development
   database: teamzu_test
-  pool: 5
-  username: austin_schneider
 
 cucumber:
   <<: *test
