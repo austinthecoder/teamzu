@@ -2,6 +2,7 @@
 .AppleDouble
 .bundle
 capybara*
+config/database.yml
 coverage
 db/*.sqlite3
 log/*.log
