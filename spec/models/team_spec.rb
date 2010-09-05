@@ -5,28 +5,24 @@ describe Team do
   it { should normalize_attribute(:name).from("  Strikers \n").to("Strikers") }
   
   describe "validations" do
-    before do
-      @team = Factory.build(:team)
-    end
+    before { @team = Factory.build(:team) }
     
     context "when the name is blank" do
-      it "should have 1 error on name" do
-        @team.name = nil
+      before { @team.name = nil }
+      it "has 1 error on name" do
         @team.valid?
         @team.should have(1).error_on(:name)
       end
     end
     
     context "when another user has a team of the same name" do
-      it "should be valid" do
-        Factory(:team, :name => @team.name)
-        @team.should be_valid
-      end
+      before { Factory(:team, :name => @team.name) }
+      it("is valid") { @team.should be_valid }
     end
     
     context "when its user has a team of the same name" do
-      it "should have 1 error on name" do
-        Factory(:team, :name => @team.name, :user => @team.user)
+      before { Factory(:team, :name => @team.name, :user => @team.user) }
+      it "has 1 error on name" do
         @team.valid?
         @team.should have(1).error_on(:name)
       end
