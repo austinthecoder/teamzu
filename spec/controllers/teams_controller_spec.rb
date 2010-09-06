@@ -37,40 +37,55 @@ describe TeamsController do
     
     describe "GET new" do
       before do
-        @team = @user.teams.new
-        @user.teams.stub!(:new => @team)
-        get :new
-      end
-      
-      it("builds a team") { assigns(:team).should == @team }
-      it("renders the 'new' template") { response.should render_template('new') }
-    end
-    
-    describe "POST create" do
-      before do
-        @team_attrs = Factory.attributes_for(:team)
-        @team = mock_model(Team, :save => true)#@user.teams.new(@team_attrs)
+        @team_attrs = Factory.attributes_for(:team).stringify_keys
+        @team = @user.teams.new(@team_attrs)
         @user.teams.stub!(:new => @team)
       end
       
       it "builds a team" do
-        post :create, :team => @team_attrs
+        @user.teams.should_receive(:new).with(@team_attrs)
+        get :new, :team => @team_attrs
+      end
+      
+      it "assigns the team" do
+        get :new
         assigns(:team).should == @team
       end
       
-      context "saving the team succeeds" do
-        before do
-          post :create, :team => @team_attrs
-        end
+      it("renders the 'new' template") do
+        get :new
+        response.should render_template('new')
+      end
+    end
+    
+    describe "POST create" do
+      before do
+        @team_attrs = Factory.attributes_for(:team).stringify_keys
+      end
+      
+      it "builds a team" do
+        team = mock_model(Team, :save => true)
+        @user.teams.should_receive(:new).with(@team_attrs).and_return(team)
+        post :create, :team => @team_attrs
+      end
+      
+      it "assigns the team" do
+        team = @user.teams.new(@team_attrs)
+        @user.teams.stub!(:new => team)
+        post :create
+        assigns(:team).should == team
+      end
+      
+      context "when saving the team succeeds" do
+        before { post :create, :team => @team_attrs }
         
         it("adds flash notice") { flash[:notice].should == "Team was created." }
         it("redirects") { response.should redirect_to(teams_url) }
       end
       
-      context "saving the team fails" do
+      context "when saving the team fails" do
         it("renders the 'new' template") do
-          @team.stub!(:save => false)
-          post :create, :team => @team_attrs
+          post :create
           response.should render_template('new')
         end
       end
@@ -80,6 +95,14 @@ describe TeamsController do
   describe "member actions" do
     before do
       @team = Factory(:team, :user => @user)
+    end
+    
+    describe "GET show" do
+      before { get :show, :id => @team.id }
+      
+      it_should_behave_like "a member action"
+      
+      it("renders the 'show' template") { response.should render_template('show') }
     end
 
     describe "GET edit" do

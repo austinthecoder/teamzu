@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :build_team, :only => %w(new create)
-  before_filter :find_team, :only => %w(edit update delete destroy)
+  before_filter :find_team, :only => %w(show edit update delete destroy)
   
   respond_to :html
   
@@ -20,22 +20,23 @@ class TeamsController < ApplicationController
     set_flash_and_respond("Team was created.") { @team.save }
   end
   
-  def edit
-  end
+  def new; end
+  
+  ##################################################
   
   def update
     set_flash_and_respond("Team was saved.") { @team.update_attributes(params[:team]) }
-  end
-  
-  def delete
   end
   
   def destroy
     set_flash_and_respond("Team was deleted.") { @team.destroy }
   end
   
-  ##################################################
+  def show; end
+  def edit; end
+  def delete; end
   
+  ##################################################
   private
   
   def find_team

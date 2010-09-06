@@ -14,6 +14,16 @@ Feature: Team Management
     When I fill in "Name" with "Strikers"
     And I press "Create my team"
     Then I should see "Team was created"
+    
+  ##################################################
+  
+  Scenario: Viewing team
+    Given I am signed in
+    And I have a team with the name "Ballers"
+    
+    When I go to the teams page
+    And I follow "Ballers"
+    Then I should see "Ballers"
   
   ##################################################
   

@@ -11,11 +11,11 @@
     %tbody
       - @teams.each do |t|
         %tr{:id => "team_#{t.id}", :class => cycle(:odd, :even)}
-          %td= t.name
+          %td= link_to t.name, team_path(t), :title => "View #{t.name}"
           %td
-            = link_to 'edit', edit_team_path(t)
+            = link_to 'edit', edit_team_path(t), :title => "Edit #{t.name}"
             |
-            = link_to 'delete', delete_team_path(t)
+            = link_to 'delete', delete_team_path(t), :title => "Delete #{t.name}"
   .pagination
     = will_paginate @teams
 - else
