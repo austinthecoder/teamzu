@@ -4,5 +4,4 @@
   %div= f.label(:name)
   %p= f.text_field(:name, :size => 30)
   
-  %p
-    = submit_button(@team.new_record? ? 'Create my team' : 'Save team')
+  %p= submit_button(@team.new_record? ? 'Create my team' : 'Save team')

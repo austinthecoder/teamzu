@@ -17,3 +17,8 @@ end
 Factory.define(:invalid_team, :class => Team) do |m|
   m.name ''
 end
+
+Factory.define(:player) do |m|
+  m.association :team
+  m.name "John Smith"
+end

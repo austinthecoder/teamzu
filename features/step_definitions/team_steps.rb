@@ -1,5 +1,9 @@
 Given /^I have a team with the name "([^"]*)"$/ do |name|
-  @user.teams.create!(:name => name)
+  @team = @user.teams.create!(:name => name)
+end
+
+Given /^I have a team$/ do
+  Given %|I have a team with the name "Lakers"|
 end
 
 Given /^I have "([^"]*)" teams$/ do |num|

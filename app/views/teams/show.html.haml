@@ -1,1 +1,4 @@
 %h2= @team.name
+
+%p
+  = link_to 'Add a player', new_team_player_path(@team), :title => "Add a player"

@@ -4,4 +4,11 @@ class ApplicationController < ActionController::Base
   
   helper :buttons
   
+  ##################################################
+  private
+  
+  def find_team(id)
+    @team = current_user.teams.find(id)
+  end
+  
 end

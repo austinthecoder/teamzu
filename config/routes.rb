@@ -7,6 +7,8 @@ Teamzu::Application.routes.draw do
     member do
       get :delete
     end
+    
+    resources :players, :only => %w(new create)
   end
   
   root :to => 'pages#index'
