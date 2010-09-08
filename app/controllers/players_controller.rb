@@ -1,9 +1,12 @@
 class PlayersController < ApplicationController
   
-  before_filter :find_team, :only => %w(new create)
+  before_filter :find_team
+  before_filter :find_player, :only => %w(edit update delete destroy)
   before_filter :build_player, :only => %w(new create)
   
   respond_to :html
+  
+  ##################################################
   
   def create
     flash[:notice] = "Player was added." if @player.save
@@ -11,10 +14,29 @@ class PlayersController < ApplicationController
   end
   
   ##################################################
+  
+  def update
+    flash[:notice] = "Player was saved." if @player.update_attributes(params[:player])
+    respond_with(@player, :location => team_url(@team))
+  end
+  
+  def destroy
+    flash[:notice] = "Player was removed." if @player.destroy
+    respond_with(@player, :location => team_url(@team))
+  end
+  
+  def edit; end
+  def delete; end
+  
+  ##################################################
   private
   
   def find_team
     super(params[:team_id])
+  end
+  
+  def find_player
+    @player = @team.players.find(params[:id])
   end
   
   def build_player

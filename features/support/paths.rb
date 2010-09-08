@@ -11,6 +11,7 @@ module NavigationHelpers
     when /the home\s?page/ then root_path
     when /my account page/ then edit_user_registration_path
     when /that team's page/ then team_path(@team)
+    when /the add player page for that team/ then new_team_player_path(@team)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

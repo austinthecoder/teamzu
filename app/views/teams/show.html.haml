@@ -1,4 +1,23 @@
 %h2= @team.name
 
-%p
-  = link_to 'Add a player', new_team_player_path(@team), :title => "Add a player"
+%p= link_to 'Add a player', new_team_player_path(@team), :title => "Add a player"
+
+= div_for(@team) do
+  - unless @team.players.empty?
+    %table.players.data
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th
+      %tbody
+        - @team.players.each do |p|
+          = content_tag_for :tr, p, :class => cycle(:odd, :even) do
+            %td= p.name
+            %td= p.email
+            %td
+              = link_to 'remove', delete_team_player_path(@team, p), :title => 'Remove this player'
+              |
+              = link_to 'edit', edit_team_player_path(@team, p), :title => 'Edit this player'
+  - else
+    %p This team does not have any players.

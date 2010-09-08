@@ -10,7 +10,7 @@
         %th
     %tbody
       - @teams.each do |t|
-        %tr{:id => "team_#{t.id}", :class => cycle(:odd, :even)}
+        = content_tag_for :tr, t, :class => cycle(:odd, :even) do
           %td= link_to t.name, team_path(t), :title => "View #{t.name}"
           %td
             = link_to 'edit', edit_team_path(t), :title => "Edit #{t.name}"

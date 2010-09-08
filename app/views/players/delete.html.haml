@@ -1,0 +1,8 @@
+%h2 Remove Player
+
+= form_tag [@team, @player], :method => 'delete', :class => 'delete_player' do
+  %p Are you sure you want to remove this player from the team?
+  
+  %p
+    = submit_button('Yes, remove player')
+    = link_to 'No, go back', team_path(@team)

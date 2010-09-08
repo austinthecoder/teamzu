@@ -1,0 +1,10 @@
+= form_for [@team, @player] do |f|
+  = f.error_messages
+  
+  %div= f.label(:name)
+  %p= f.text_field(:name, :size => 50)
+  
+  %div= f.label(:email)
+  %p= f.text_field(:email, :size => 50)
+  
+  %p= submit_button(@player.new_record? ? "Add Player" : "Save player")

@@ -8,10 +8,15 @@ Teamzu::Application.routes.draw do
       get :delete
     end
     
-    resources :players, :only => %w(new create)
+    resources :players, :except => %w(index) do
+      member do
+        get :delete
+      end
+    end
   end
   
   root :to => 'pages#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
