@@ -1,8 +1,8 @@
 class TeamsController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :set_team, :only => %w(show edit update delete destroy)
   before_filter :build_team, :only => %w(new create)
-  before_filter :find_team, :only => %w(show edit update delete destroy)
   
   respond_to :html
   
@@ -17,19 +17,20 @@ class TeamsController < ApplicationController
   end
   
   def create
-    set_flash_and_respond("Team was created.") { @team.save }
+    flash[:notice] = "Team was created." if @team.save
+    respond_with(@team, :location => teams_url)
   end
-  
-  def new; end
   
   ##################################################
   
   def update
-    set_flash_and_respond("Team was saved.") { @team.update_attributes(params[:team]) }
+    flash[:notice] = "Team was saved." if @team.update_attributes(params[:team])
+    respond_with(@team, :location => teams_url)
   end
   
   def destroy
-    set_flash_and_respond("Team was deleted.") { @team.destroy }
+    flash[:notice] = "Team was deleted." if @team.destroy
+    respond_with(@team, :location => teams_url)
   end
   
   def show; end
@@ -39,17 +40,12 @@ class TeamsController < ApplicationController
   ##################################################
   private
   
-  def find_team
-    super(params[:id])
+  def set_team
+    @team = find_team(params[:id])
   end
   
   def build_team
     @team = current_user.teams.new(params[:team])
-  end
-  
-  def set_flash_and_respond(message)
-    flash[:notice] = message if yield
-    respond_with(@team, :location => teams_url)
   end
   
 end

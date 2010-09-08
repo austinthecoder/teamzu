@@ -1,7 +1,8 @@
 class PlayersController < ApplicationController
   
-  before_filter :find_team
-  before_filter :find_player, :only => %w(edit update delete destroy)
+  before_filter :authenticate_user!
+  before_filter :set_team
+  before_filter :set_player, :only => %w(edit update delete destroy)
   before_filter :build_player, :only => %w(new create)
   
   respond_to :html
@@ -31,11 +32,11 @@ class PlayersController < ApplicationController
   ##################################################
   private
   
-  def find_team
-    super(params[:team_id])
+  def set_team
+    @team = find_team(params[:team_id])
   end
   
-  def find_player
+  def set_player
     @player = @team.players.find(params[:id])
   end
   

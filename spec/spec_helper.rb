@@ -26,6 +26,4 @@ RSpec.configure do |config|
   
   config.include AttributeNormalizer::RSpecMatcher
   
-  config.extend(ControllerMacros, :type => :controller)
-  
 end

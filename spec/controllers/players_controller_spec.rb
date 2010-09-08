@@ -34,75 +34,51 @@ describe PlayersController do
   describe "GET new" do
     before do
       @player_attrs = Factory.attributes_for(:player).stringify_keys
+      @user.stub!(:teams => mock(Array, :find => @team))
     end
     
-    # context "when that team does not exist" do
-    #   it "renders 404" do
-    #     pending
-    #     lambda { get :new, :team_id => '9999' }
-    #     response.code.should == 404
-    #   end
-    # end
+    it("assigns the team") { assigns_the_team { get :new, :team_id => @team.id } }
+    it("assigns the player") { assigns_the_player { get :new, :team_id => @team.id } }
     
-    context "when that team exists" do
-      before do
-        @user.stub!(:teams => mock(Array, :find => @team))
-      end
-      
-      it "assigns the team" do
-        assigns_the_team { get :new, :team_id => @team.id }
-      end
-      
-      it "builds a player" do
-        builds_a_player { get :new, :team_id => @team.id, :player => @player_attrs }
-      end
-      
-      it "assigns the player" do
-        assigns_the_player { get :new, :team_id => @team.id }
-      end
-      
-      it "renders the 'new' template" do
-        get :new, :team_id => @team.id
-        response.should render_template('new')
-      end
+    it("builds a player") do
+      builds_a_player { get :new, :team_id => @team.id, :player => @player_attrs }
+    end
+    
+    it "renders the 'new' template" do
+      get :new, :team_id => @team.id
+      response.should render_template('new')
     end
   end
   
   ##################################################
   
   describe "POST create" do
-    context "when that team exists" do
-      before do
-        @player_attrs = Factory.attributes_for(:player).stringify_keys
-      end
+    before { @player_attrs = Factory.attributes_for(:player).stringify_keys }
+    
+    it("assigns the team") { assigns_the_team { post :create, :team_id => @team.id } }
+    
+    it "builds a player" do
+      @team.stub!(:players => mock(Array, :new => @team.players.new(@player_attrs)))
+      @user.stub!(:teams => mock(Array, :find => @team))
+      builds_a_player { post :create, :team_id => @team.id, :player => @player_attrs }
+    end
+    
+    it "assigns the player" do
+      @user.stub!(:teams => mock(Array, :find => @team))
+      assigns_the_player { post :create, :team_id => @team.id }
+    end
+    
+    context "when saving the player succeeds" do
+      before { post :create, :team_id => @team.id, :player => @player_attrs }
       
-      it "assigns the team" do
-        assigns_the_team { post :create, :team_id => @team.id }
-      end
-      
-      it "builds a player" do
-        @team.stub!(:players => mock(Array, :new => @team.players.new(@player_attrs)))
-        @user.stub!(:teams => mock(Array, :find => @team))
-        builds_a_player { post :create, :team_id => @team.id, :player => @player_attrs }
-      end
-      
-      it "assigns the player" do
-        @user.stub!(:teams => mock(Array, :find => @team))
-        assigns_the_player { post :create, :team_id => @team.id }
-      end
-      
-      context "when saving the player succeeds" do
-        before { post :create, :team_id => @team.id, :player => @player_attrs }
-        
-        it("adds flash notice") { flash[:notice].should == "Player was added." }
-        it("redirects") { response.should redirect_to(team_url(@team)) }
-      end
-      
-      context "when saving the player fails" do
-        it("renders the 'new' template") do
-          post :create, :team_id => @team.id
-          response.should render_template('new')
-        end
+      it("adds flash notice") { flash[:notice].should == "Player was added." }
+      it("redirects") { response.should redirect_to(team_url(@team)) }
+    end
+    
+    context "when saving the player fails" do
+      it("renders the 'new' template") do
+        post :create, :team_id => @team.id
+        response.should render_template('new')
       end
     end
   end

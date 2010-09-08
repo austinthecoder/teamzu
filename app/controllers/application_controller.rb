@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
   
   def find_team(id)
-    @team = current_user.teams.find(id)
+    current_user.teams.find(id)
   end
   
 end
