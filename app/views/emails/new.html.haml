@@ -1,0 +1,10 @@
+%h2 Send Email to Players
+
+= form_for :email, :url => team_bulk_player_emails_path(@team, params[:bulk_player_id]) do |f|
+  %div= f.label(:subject)
+  %p= f.text_field(:subject, :size => 30)
+  
+  %div= f.label(:message)
+  %p= f.text_area(:message, :rows => 5, :cols => 50)
+  
+  %p= submit_button("Send Email")

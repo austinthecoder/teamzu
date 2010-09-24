@@ -1,11 +1,11 @@
 !!!
 %html
   %head
-    %title
-      Teamzu
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
+    %title Teamzu
+    %meta{:name => "viewport", :content => "user-scalable=no, width=device-width"}
     = csrf_meta_tag
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'application'
 %body
   #header
     %h1= link_to 'Teamzu', root_path

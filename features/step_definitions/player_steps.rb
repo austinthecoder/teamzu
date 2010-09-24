@@ -3,6 +3,15 @@ Given /^that team has a player with the attributes:$/ do |table|
   @player = @team.players.create!(:name => attrs['Name'], :email => attrs['Email'])
 end
 
+Given /^that team has players with the attributes:$/ do |table|
+  @players = []
+  table.hashes.each do |attrs|
+    attrs2 = {}
+    attrs.each { |k, v| attrs2[k.downcase.gsub(/\s/, '_')] = v }
+    @players << @team.players.create!(attrs2)
+  end
+end
+
 ##################################################
 
 When /^I add players to that team with the following attributes:$/ do |table|
@@ -20,6 +29,14 @@ end
 When /^I follow "([^"]*)" within that player's row$/ do |link_text|
   within("tr#player_#{@player.id}") do
     click_link(link_text)
+  end
+end
+
+When /^I check those players in the table$/ do
+  within("table.players") do
+    @players.each do |p|
+      check("player_id_#{p.id}")
+    end
   end
 end
 

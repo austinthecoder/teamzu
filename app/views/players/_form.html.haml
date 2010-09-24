@@ -2,9 +2,9 @@
   = f.error_messages
   
   %div= f.label(:name)
-  %p= f.text_field(:name, :size => 50)
+  %p= f.text_field(:name, :size => 30)
   
   %div= f.label(:email)
-  %p= f.text_field(:email, :size => 50)
+  %p= f.text_field(:email, :size => 30)
   
   %p= submit_button(@player.new_record? ? "Add Player" : "Save player")

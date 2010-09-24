@@ -546,21 +546,21 @@ td.table, th.table {
     width: 100%; }
 
 a {
-  color: #3333ff;
+  color: #33f;
   text-decoration: none; }
   a:hover {
-    color: #333399; }
+    color: #339; }
   a:visited {
-    color: #333399; }
+    color: #339; }
 
 body {
-  background: white;
-  color: #333333;
+  background: #fff;
+  color: #333;
   font-size: 18px;
   padding: 30px; }
 
 form {
-  background: #eeeeee;
+  background: #eee;
   padding: 20px 30px; }
 
 h1, h2, h3 {
@@ -642,10 +642,3 @@ td.actions {
 
 #teams {
   margin: 0 0 20px 0; }
-
-@media screen and (max-device-width: 480px) {
-  body {
-    min-width: 420px; }
-
-  #header h1, #header #user_menu {
-    float: none; } }

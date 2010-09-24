@@ -1,14 +1,11 @@
 class ApplicationController < ActionController::Base
-  
+
   protect_from_forgery
-  
+
   helper :buttons
-  
-  ##################################################
-  private
-  
-  def find_team(id)
-    current_user.teams.find(id)
+
+  def teams_scope
+    @teams_scope ||= current_user.teams
   end
-  
+
 end
