@@ -17,14 +17,26 @@ describe EmailsController do
   describe "GET new" do
     before { @players.each { |p| p.email = Factory.next(:email) } }
 
+    it "calls #ensure_emailable_players" do
+      controller.should_receive(:ensure_emailable_players)
+      get :new, @params
+    end
+
     it "renders the 'new' template" do
       get :new, @params
       response.should render_template('new')
     end
   end
 
+  ##################################################
+
   describe "POST create" do
     before { @players.each { |p| p.email = Factory.next(:email) } }
+
+    it "calls #ensure_emailable_players" do
+      controller.should_receive(:ensure_emailable_players)
+      post :create, @params
+    end
 
     context "when the message is blank" do
       before { post :create, @params }
@@ -62,6 +74,38 @@ describe EmailsController do
       it "redirects to team url" do
         post :create, @params
         response.should redirect_to(team_url(@team))
+      end
+    end
+  end
+
+  ##################################################
+
+  describe "#ensure_emailable_players" do
+    before { controller.stub!(:players => []) }
+
+    context "if all of the players have an email" do
+      before { controller.players << Factory(:player, :email => 'a@b.com') }
+
+      it "does not redirect" do
+        controller.should_not_receive(:redirect_to)
+        controller.ensure_emailable_players
+      end
+    end
+
+    context "if any of the players does not have an email" do
+      before do
+        controller.players << Factory(:player, :email => '')
+        controller.stub!(:redirect_to => nil)
+      end
+
+      it("adds flash alert") do
+        controller.ensure_emailable_players
+        flash[:alert].should == "Some of the players selected do not have an email address."
+      end
+
+      it("redirects to the team_url") do
+        controller.should_receive(:redirect_to).with(team_url(@team))
+        controller.ensure_emailable_players
       end
     end
   end
