@@ -19,5 +19,7 @@ Feature: Notifications
       | Message | We have a game tomorrow at 8:00. |
     And I press "Send"
 
-    Then I should see "Email was sent"
-    And those players should receive that email
+    Then I should see "Message was sent to players"
+    And those players should receive an email with the following:
+      | Subject | Game Tomorrow                    |
+      | Body    | We have a game tomorrow at 8:00. |

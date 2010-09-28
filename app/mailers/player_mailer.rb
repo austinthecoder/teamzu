@@ -1,8 +1,12 @@
 class PlayerMailer < ActionMailer::Base
 
-  def message_email(email_attrs = {})
+  def bulk_message(players, from_email, subject, body)
+    @msg = body
     mail(
-      :to => email_attrs
+      :to => players.map(&:email),
+      :from => Teamzu::MAILER_EMAIL,
+      :reply_to => from_email,
+      :subject => subject
     )
   end
 

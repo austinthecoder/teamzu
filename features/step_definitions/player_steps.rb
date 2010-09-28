@@ -49,3 +49,11 @@ end
 Then /^I should see the player's table with the following rows:$/ do |table|
   table.diff!(tableish("#team_#{@team.id} .players tr", 'th, td'))
 end
+
+Then /^those players should receive an email with the following:$/ do |table|
+  attrs = table.rows_hash
+  mail = ActionMailer::Base.deliveries.last
+  mail.subject.should == attrs['Subject']
+  mail.body.encoded.should == attrs['Body']
+  mail.to.sort.should == @players.map(&:email).sort
+end

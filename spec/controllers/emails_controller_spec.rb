@@ -47,17 +47,13 @@ describe EmailsController do
 
     context "when the message is not blank" do
       before do
-        @params.merge!(:email => {:message => "some message"})
+        @params.merge!(:email => {:message => "message", :subject => "subject"})
         @mail_message = mock(Mail::Message, :deliver => nil)
-        PlayerMailer.stub!(:message_email => @mail_message)
+        PlayerMailer.stub!(:bulk_message => @mail_message)
       end
 
       it "sends message to PlayerMailer" do
-        PlayerMailer.should_receive(:message_email).with({
-          :from => @user.email,
-          :message => "some message",
-          :to => @players.map(&:email)
-        })
+        PlayerMailer.should_receive(:bulk_message).with(@players, @user.email, "subject", "message")
         post :create, @params
       end
 

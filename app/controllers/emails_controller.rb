@@ -10,11 +10,12 @@ class EmailsController < ApplicationController
       flash[:alert] = "Looks like you left the message blank."
       render 'new'
     else
-      email_attrs = params[:email].symbolize_keys.merge!(
-        :to => players.map(&:email),
-        :from => current_user.email
-      )
-      PlayerMailer.message_email(email_attrs).deliver
+      PlayerMailer.bulk_message(*[
+        players,
+        current_user.email,
+        params[:email][:subject],
+        params[:email][:message]
+      ]).deliver
       flash[:notice] = "Message was sent to players."
       redirect_to team_url(team)
     end
@@ -31,7 +32,7 @@ class EmailsController < ApplicationController
   end
 
   def players
-    @players ||= players_scope.find(Array(params[:bulk_player_id]))
+    @players ||= players_scope.find(params[:bulk_player_id].split(":"))
   end
 
   def ensure_emailable_players
